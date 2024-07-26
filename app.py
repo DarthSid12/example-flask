@@ -12,7 +12,7 @@ def getSummary():
     print(1)
     req = request.headers
     print(2)
-    response = requests.get(req['url'])
+    response = requests.get(req['url'],headers=req)
     print(3)
     return response.text
 
