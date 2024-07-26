@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, Response
 from flask_cors import CORS, cross_origin
 import requests
+import json 
 
 app = Flask(__name__)
 CORS(app, support_credentials=True)
@@ -10,9 +11,17 @@ CORS(app, support_credentials=True)
 @cross_origin(supports_credentials=True)
 def getSummary():
     print(1)
-    req = request.headers
+    req = dict(request.headers)
     print(2)
-    response = requests.get(req['url'],headers=req)
+    response = ''
+    print(req.keys())
+    if('Headers' in req.keys()):
+        print("Head")
+        response = requests.get(req['Url'],headers=json.loads(req['Headers']))
+    
+    else:
+        response = requests.get(req['Url'])
+
     print(3)
     return response.text
 
